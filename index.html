@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="sw">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071b16">
+<title>MANGEBET | Mechi na Masoko</title>
+<style>
+:root{--bg:#071b16;--panel:#102820;--panel2:#172b35;--line:#28483e;--green:#22d58b;--lime:#b8f34b;--yellow:#ffd400;--text:#f4f7f6;--muted:#a8bbb5;--bluegray:#536a83}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;padding-bottom:82px}
+button,a{font:inherit}button{cursor:pointer}.wrap{width:min(100%,900px);margin:auto}
+header{position:sticky;top:0;z-index:20;background:#061711;border-bottom:1px solid var(--line);padding:13px 14px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:27px;font-weight:900;letter-spacing:-1px;color:white;text-decoration:none}.brand span{color:var(--green)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line);border-radius:14px;padding:13px 15px;color:var(--text);text-decoration:none;font-weight:800;background:#102820;min-height:46px}.btn-primary{background:linear-gradient(110deg,var(--green),var(--lime));color:#061711;border:0}
+.hero{padding:15px 12px 18px}.hero-actions{display:flex;gap:9px}.hero-actions .btn{flex:1;padding:12px 8px;font-size:15px}
+.demo-note{margin:10px 14px 16px;padding:13px 14px;border-radius:15px;background:#2b2918;border:1px solid #5a5126;color:#f2e5a5;line-height:1.5;font-size:14px}
+.match-hero{padding:17px 14px 14px;text-align:center;background:#101b24;border-bottom:1px solid #2c3b46}
+.league-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}.teams-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin:14px auto 10px;max-width:600px}.team-head{font-size:18px;font-weight:900}.team-head:last-child{text-align:right}.crest{font-size:26px;display:block;margin:5px}.vs{font-weight:900;color:var(--lime)}.kickoff{font-size:13px;color:var(--muted);margin-bottom:13px}
+.tabs{display:flex;overflow-x:auto;gap:5px;padding:0 6px;background:#1d2a33;scrollbar-width:none}.tabs::-webkit-scrollbar,.market-tabs::-webkit-scrollbar{display:none}.tab{white-space:nowrap;border:0;background:#35495b;color:#d9e1e7;padding:13px 16px;font-weight:800;min-width:95px}.tab.active{background:var(--yellow);color:#171717}
+.market-tabs{display:flex;overflow-x:auto;gap:7px;padding:10px 8px;background:#202a30;scrollbar-width:none}.market-tab{white-space:nowrap;border:1px solid transparent;border-radius:24px;padding:9px 13px;background:transparent;color:#d0d7dc}.market-tab.active{background:var(--yellow);color:#141414;font-weight:900}
+.market-tools{display:flex;gap:8px;padding:10px 10px;background:#17242c}.search{flex:1;min-width:0;background:#101a20;border:1px solid #33444e;color:white;padding:11px;border-radius:10px}.filter-btn{border:1px solid #33444e;background:#293943;color:white;border-radius:10px;padding:10px}
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:13px 12px 9px;color:white}.section-title small{color:var(--muted)}
+.match-card{margin:0 8px 12px;background:#102820;border:1px solid #29483e;border-radius:13px;overflow:hidden}
+.match-row{display:grid;grid-template-columns:1fr auto;gap:8px;padding:12px 11px;align-items:center;cursor:pointer}.match-row:focus{outline:2px solid var(--lime)}.match-info{min-width:0}.competition{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px}.teams-line{font-weight:800;font-size:14px;line-height:1.5}.teamline-crest{margin-right:5px}.time{font-size:12px;color:var(--muted);white-space:nowrap}.market-count{font-size:11px;color:var(--lime);margin-top:5px}
+.market-panel{border-top:1px solid #2a493f}.market-heading{display:flex;justify-content:space-between;align-items:center;background:#526981;color:white;padding:10px 11px;font-weight:900;font-size:14px;cursor:pointer;border:0;width:100%;text-align:left}.market-heading .right{display:flex;align-items:center;gap:9px}.chevron{font-size:20px;transition:transform .2s}.market-heading[aria-expanded="false"] .chevron{transform:rotate(-90deg)}
+.odds-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:6px;background:#17242c}.odd{min-width:0;border:1px solid #263943;border-radius:7px;background:#202c34;color:white;padding:10px 4px;display:flex;flex-direction:column;gap:5px;align-items:center;justify-content:center;min-height:63px}.odd small{font-size:13px;color:#c4ccd2}.odd strong{font-size:17px}.odd.selected{background:#b7f34c;color:#09150e;border-color:#b7f34c}.odd.selected small{color:#193016}.odd.selected strong{color:#09150e}
+.more-markets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:7px;background:#17242c}.more-market{background:#202c34;border:1px solid #30414b;color:#e9eeee;border-radius:8px;text-align:left;padding:11px;font-size:13px}.more-market b{display:block;color:var(--lime);margin-top:5px}
+.betslip{position:fixed;z-index:30;bottom:0;left:0;right:0;background:#0b171c;border-top:1px solid #34464e;padding:10px max(10px,env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px #0005}.betslip-inner{max-width:900px;margin:auto;display:flex;align-items:center;gap:10px}.slip-label{flex:1;min-width:0}.slip-label b{display:block}.slip-label small{display:block;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:3px}.slip-count{background:var(--yellow);color:#111;border-radius:50%;display:inline-flex;width:22px;height:22px;align-items:center;justify-content:center;margin-left:4px}.slip-btn{background:var(--yellow);color:#111;border:0;border-radius:10px;padding:12px 15px;font-weight:900;white-space:nowrap}.slip-panel{display:none;max-width:900px;margin:10px auto 0;background:#14262b;border:1px solid #31474d;border-radius:12px;padding:12px}.slip-panel.open{display:block}.slip-panel input{width:100%;margin-top:7px;background:#071b16;color:white;border:1px solid #3b554e;border-radius:8px;padding:11px}.slip-result{color:var(--lime);font-weight:800;margin-top:8px}.bottom-nav{display:flex;justify-content:space-around;gap:5px;max-width:900px;margin:0 auto 8px}.bottom-nav button{background:none;border:0;color:#b7c5c8;font-size:11px;padding:4px}.bottom-nav button.active{color:var(--lime)}.bottom-nav span{display:block;font-size:20px;margin-bottom:3px}
+.footer{text-align:center;color:#82968e;font-size:12px;padding:22px 12px}.footer a{color:var(--lime)}
+@media(min-width:650px){.match-card{margin:0 14px 14px}.teams-line{font-size:16px}.team-head{font-size:22px}.odd{min-height:75px}.odd strong{font-size:20px}.hero{padding-left:16px;padding-right:16px}.demo-note{margin-left:16px;margin-right:16px}}
+</style>
+</head>
+<body>
+<header><div class="wrap topbar"><a class="brand" href="index.html">MANGE<span>BET</span></a><a class="btn btn-primary" href="https://beautiful-tapioca-600c37.netlify.app/spin" target="_blank" rel="noopener">🎡 Fungua Spin</a></div></header>
+<div class="wrap">
+<section class="hero"><div class="hero-actions"><a class="btn btn-primary" href="#mechi">⚽ Angalia mechi</a><a class="btn" href="https://beautiful-tapioca-600c37.netlify.app/spin" target="_blank" rel="noopener">🎡 Cheza Spin Wheel</a></div></section>
+<div class="demo-note">ℹ️ <b>DEMO:</b> Mechi, masoko na odds ni za mfano tu. Hakuna dau au malipo halisi yanayofanyika kupitia ukurasa huu.</div>
+<section class="match-hero" aria-label="Mechi iliyochaguliwa"><div class="league-label">UEFA · LIGI YA MFANO</div><div class="teams-head"><div class="team-head"><span class="crest">🐉</span>Porto</div><div class="vs">VS</div><div class="team-head"><span class="crest">🔴⚪</span>PSV</div></div><div class="kickoff">Jumanne, 20 Oktoba 2026 · 22:00 · Demo</div></section>
+<div class="tabs" aria-label="Aina za masoko"><button class="tab active" data-tab="markets">Markets</button><button class="tab" data-tab="special">Boost Special</button><button class="tab" data-tab="sgp">SGP</button><button class="tab" data-tab="code">Codezone</button></div>
+<div class="market-tabs" aria-label="Vichujio vya masoko"><button class="market-tab active" data-filter="All">All</button><button class="market-tab" data-filter="Main">Main</button><button class="market-tab" data-filter="Bet Builder">Bet Builder</button><button class="market-tab" data-filter="EarlyWin">EarlyWin</button><button class="market-tab" data-filter="1st Half">1st Half</button><button class="market-tab" data-filter="Total">Total</button><button class="market-tab" data-filter="Both Teams">Both Teams</button></div>
+<div class="market-tools"><input class="search" id="search" placeholder="⌕ Tafuta timu au soko..." aria-label="Tafuta timu au soko"><button class="filter-btn" id="expandAll">Fungua yote⌄</button></div>
+<div class="section-title" id="mechi"><div><b>Mechi za mfano</b><br><small>Gusa kichwa cha soko kufungua au kufunga</small></div><small>Demo</small></div>
+<div id="matches"></div>
+<section class="footer">© MANGEBET · Tovuti ya majaribio tu.<br>Huduma za kubashiri kwa pesa halisi zinahitaji leseni na kufuata sheria husika.<br><a href="https://beautiful-tapioca-600c37.netlify.app/spin" target="_blank" rel="noopener">Spin Wheel</a></section>
+</div>
+<div class="betslip"><div class="betslip-inner"><div class="slip-label"><b>🎟 Tiketi ya demo <span class="slip-count" id="slipCount">0</span></b><small id="slipSummary">Chagua odds ili kujaribu</small></div><button class="slip-btn" id="openSlip">Tiketi ⌄</button></div><div class="slip-panel" id="slipPanel"><b>Chaguo zako (demo)</b><div id="slipItems">Bado hujachagua odds.</div><label for="stake">Kiasi cha mfano (TSh)</label><input id="stake" type="number" min="0" placeholder="Mfano: 1000"><div class="slip-result" id="potential">Makadirio: —</div><button class="slip-btn" id="clearSlip" style="margin-top:9px">Futa chaguo</button><p style="color:#a8bbb5;font-size:12px">Hii ni demo ya muonekano tu. Hakuna dau linalotumwa wala pesa halisi.</p></div></div>
+<script>
+const matchesData=[
+{id:1,league:"UEFA · LIGI YA MFANO",time:"22:00",home:"Porto",away:"PSV",homeIcon:"🐉",awayIcon:"🔴⚪",markets:[
+{name:"1X2",filter:"Main",items:[["1","1.54"],["X","4.85"],["2","6.00"]]},
+{name:"1UP",filter:"Main",items:[["1","1.25"],["X","4.85"],["2","2.60"]]},
+{name:"2UP",filter:"Main",items:[["1","1.47"],["X","4.85"],["2","5.25"]]},
+{name:"3UP",filter:"Main",items:[["1","1.51"],["X","4.85"],["2","5.95"]]},
+{name:"Double Chance",filter:"Main",items:[["1X","1.15"],["12","1.20"],["X2","2.62"]]},
+{name:"Total Goals",filter:"Total",items:[["Over 1.5","1.32"],["Over 2.5","1.90"],["Under 2.5","1.85"]]},
+{name:"Both Teams To Score",filter:"Both Teams",items:[["Yes","1.78"],["No","1.98"]]},
+{name:"1st Half 1X2",filter:"1st Half",items:[["1","2.05"],["X","2.25"],["2","4.50"]]},
+{name:"Bet Builder",filter:"Bet Builder",items:[["Home or Draw","1.18"],["Over 1.5","1.32"]]},
+{name:"EarlyWin",filter:"EarlyWin",items:[["Porto leads by 2","2.20"],["PSV leads by 2","7.00"]]}
+]},
+{id:2,league:"UEFA · LIGI YA MFANO",time:"22:00",home:"Roma",away:"Slovan Bratislava",homeIcon:"🟠🔴",awayIcon:"🔵🔴",markets:[
+{name:"1X2",filter:"Main",items:[["1","1.72"],["X","3.80"],["2","4.70"]]},
+{name:"Double Chance",filter:"Main",items:[["1X","1.18"],["12","1.25"],["X2","2.05"]]},
+{name:"Total Goals",filter:"Total",items:[["Over 1.5","1.35"],["Over 2.5","1.88"],["Under 2.5","1.92"]]},
+{name:"Both Teams To Score",filter:"Both Teams",items:[["Yes","1.80"],["No","1.90"]]},
+{name:"1st Half 1X2",filter:"1st Half",items:[["1","2.20"],["X","2.10"],["2","4.80"]]}
+]},
+{id:3,league:"LIGI YA MFANO · SPAIN",time:"21:30",home:"Club Verde",away:"Club Oro",homeIcon:"🟢",awayIcon:"🟡",markets:[
+{name:"1X2",filter:"Main",items:[["1","1.95"],["X","3.45"],["2","3.75"]]},
+{name:"Double Chance",filter:"Main",items:[["1X","1.25"],["12","1.28"],["X2","1.75"]]},
+{name:"Total Goals",filter:"Total",items:[["Over 1.5","1.40"],["Over 2.5","2.00"],["Under 2.5","1.80"]]},
+{name:"Both Teams To Score",filter:"Both Teams",items:[["Yes","1.85"],["No","1.88"]]}
+]}
+];
+const matchesEl=document.getElementById("matches");let selected=[];let activeFilter="All";let activeTab="markets";let allExpanded=false;
+function renderMatches(){
+ const query=document.getElementById("search").value.trim().toLowerCase();
+ matchesEl.innerHTML="";
+ matchesData.forEach(match=>{
+  const matchedQuery=[match.home,match.away,match.league,...match.markets.map(m=>m.name)].join(" ").toLowerCase().includes(query);
+  const visibleMarkets=match.markets.filter(m=>(activeFilter==="All"||m.filter===activeFilter||m.name===activeFilter)&&(activeTab==="markets"||(activeTab==="special"&&m.name==="EarlyWin")||(activeTab==="sgp"&&m.name==="Bet Builder")||(activeTab==="code"&&m.name==="Double Chance")));
+  if(!matchedQuery||visibleMarkets.length===0)return;
+  const card=document.createElement("article");card.className="match-card";
+  const row=document.createElement("div");row.className="match-row";row.tabIndex=0;row.setAttribute("role","button");row.setAttribute("aria-label","Fungua masoko ya "+match.home+" dhidi ya "+match.away);
+  row.innerHTML=`<div class="match-info"><div class="competition">⚽ ${match.league}</div><div class="teams-line"><span class="teamline-crest">${match.homeIcon}</span>${match.home}<br><span class="teamline-crest">${match.awayIcon}</span>${match.away}</div><div class="market-count">${match.markets.length} masoko ya mfano · Gusa kufungua</div></div><div class="time">${match.time}　⌄</div>`;
+  row.addEventListener("click",()=>{const panel=card.querySelector(".market-panel");panel.hidden=!panel.hidden;row.querySelector(".time").textContent=match.time+(panel.hidden?"　⌄":"　⌃")});
+  row.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();row.click()}});
+  const panel=document.createElement("div");panel.className="market-panel";
+  visibleMarkets.forEach((market,mi)=>{
+   const section=document.createElement("section");section.className="market-section";
+   const heading=document.createElement("button");heading.className="market-heading";heading.type="button";heading.setAttribute("aria-expanded",String(allExpanded||mi===0));heading.innerHTML=`<span>☆　ⓘ　${market.name}</span><span class="right"><span>Demo</span><span class="chevron">⌄</span></span>`;
+   const body=document.createElement("div");body.className="odds-grid";body.hidden=!(allExpanded||mi===0);
+   market.items.forEach(([label,odd])=>{const key=`${match.id}|${market.name}|${label}`;const btn=document.createElement("button");btn.type="button";btn.className="odd"+(selected.some(s=>s.key===key)?" selected":"");btn.innerHTML=`<small>${label}</small><strong>${odd}</strong>`;btn.setAttribute("aria-label",`${match.home} ${market.name} ${label}, odds ${odd}`);btn.addEventListener("click",()=>toggleOdd({key,match:match.home+" - "+match.away,market:market.name,label,odd:Number(odd)}));body.appendChild(btn)});
+   heading.addEventListener("click",()=>{body.hidden=!body.hidden;heading.setAttribute("aria-expanded",String(!body.hidden))});
+   section.append(heading,body);panel.appendChild(section);
+  });
+  card.append(row,panel);matchesEl.appendChild(card);
+ });
+ if(!matchesEl.children.length)matchesEl.innerHTML='<p style="padding:15px;color:#b8c8c1">Hakuna soko linalolingana na utafutaji huu.</p>';
+}
+function toggleOdd(item){const idx=selected.findIndex(s=>s.key===item.key);if(idx>=0)selected.splice(idx,1);else selected.push(item);renderMatches();renderSlip()}
+function renderSlip(){document.getElementById("slipCount").textContent=selected.length;document.getElementById("slipSummary").textContent=selected.length?selected.map(s=>s.label+" "+s.odd).join(" · "):"Chagua odds ili kujaribu";document.getElementById("slipItems").innerHTML=selected.length?selected.map((s,i)=>`<div style="display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #31474d"><span>${s.match}<br><small style="color:#a8bbb5">${s.market}: ${s.label}</small></span><b>${s.odd.toFixed(2)} <button data-remove="${i}" style="background:none;border:0;color:#ffb0a5">✕</button></b></div>`).join(""):"Bado hujachagua odds.";document.querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>{selected.splice(Number(b.dataset.remove),1);renderMatches();renderSlip()}));calcPotential()}
+function calcPotential(){const stake=Number(document.getElementById("stake").value);const combined=selected.reduce((a,s)=>a*s.odd,1);document.getElementById("potential").textContent=selected.length&&stake>0?`Odds za pamoja: ${combined.toFixed(2)} · Makadirio ya demo: TSh ${(stake*combined).toLocaleString("en-US",{maximumFractionDigits:0})}`:"Makadirio: —"}
+document.querySelectorAll(".market-tab").forEach(b=>b.addEventListener("click",()=>{activeFilter=b.dataset.filter;document.querySelectorAll(".market-tab").forEach(x=>x.classList.toggle("active",x===b));renderMatches()}));
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{activeTab=b.dataset.tab;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));activeFilter="All";document.querySelectorAll(".market-tab").forEach(x=>x.classList.toggle("active",x.dataset.filter==="All"));renderMatches()}));
+document.getElementById("search").addEventListener("input",renderMatches);
+document.getElementById("expandAll").addEventListener("click",()=>{allExpanded=!allExpanded;document.getElementById("expandAll").textContent=allExpanded?"Funga yote⌃":"Fungua yote⌄";renderMatches();document.querySelectorAll(".market-heading").forEach(h=>{h.setAttribute("aria-expanded",String(allExpanded||h.parentElement===h.closest(".match-card")?.querySelector(".market-section")));if(allExpanded)h.nextElementSibling.hidden=false;else h.nextElementSibling.hidden=h.parentElement!==h.closest(".match-card")?.querySelector(".market-section")})});
+document.getElementById("openSlip").addEventListener("click",()=>document.getElementById("slipPanel").classList.toggle("open"));
+document.getElementById("stake").addEventListener("input",calcPotential);
+document.getElementById("clearSlip").addEventListener("click",()=>{selected=[];renderMatches();renderSlip()});
+renderMatches();renderSlip();
+</script>
+</body>
+</html>
